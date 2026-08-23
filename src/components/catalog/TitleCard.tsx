@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   title: Title;
-  saved?: boolean;
-  onToggleSave?: (title: Title) => void;
-  progressPercent?: number;
-  className?: string;
+  saved?: boolean | undefined;
+  onToggleSave?: ((title: Title) => void) | undefined;
+  progressPercent?: number | undefined;
+  className?: string | undefined;
 }
 
 export function TitleCard({ title, saved, onToggleSave, progressPercent, className }: Props) {
