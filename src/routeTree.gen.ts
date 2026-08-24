@@ -17,6 +17,7 @@ import { Route as ProfilesRouteImport } from './routes/profiles'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as BrowseMoviesRouteImport } from './routes/browse.movies'
 import { Route as BrowseSeriesRouteImport } from './routes/browse.series'
+import { Route as TitleSlugRouteImport } from './routes/title.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const BrowseSeriesRoute = BrowseSeriesRouteImport.update({
   path: '/browse/series',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TitleSlugRoute = TitleSlugRouteImport.update({
+  id: '/title/$slug',
+  path: '/title/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/browse/movies': typeof BrowseMoviesRoute
   '/browse/series': typeof BrowseSeriesRoute
+  '/title/$slug': typeof TitleSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/browse/movies': typeof BrowseMoviesRoute
   '/browse/series': typeof BrowseSeriesRoute
+  '/title/$slug': typeof TitleSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/browse/movies': typeof BrowseMoviesRoute
   '/browse/series': typeof BrowseSeriesRoute
+  '/title/$slug': typeof TitleSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/browse/movies'
     | '/browse/series'
+    | '/title/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/browse/movies'
     | '/browse/series'
+    | '/title/$slug'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/browse/movies'
     | '/browse/series'
+    | '/title/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   BrowseMoviesRoute: typeof BrowseMoviesRoute
   BrowseSeriesRoute: typeof BrowseSeriesRoute
+  TitleSlugRoute: typeof TitleSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrowseSeriesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/title/$slug': {
+      id: '/title/$slug'
+      path: '/title/$slug'
+      fullPath: '/title/$slug'
+      preLoaderRoute: typeof TitleSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   BrowseMoviesRoute: BrowseMoviesRoute,
   BrowseSeriesRoute: BrowseSeriesRoute,
+  TitleSlugRoute: TitleSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
