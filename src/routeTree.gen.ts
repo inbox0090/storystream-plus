@@ -15,6 +15,7 @@ import { Route as MyListRouteImport } from './routes/my-list'
 import { Route as PlansRouteImport } from './routes/plans'
 import { Route as ProfilesRouteImport } from './routes/profiles'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as BrowseMoviesRouteImport } from './routes/browse.movies'
 import { Route as BrowseSeriesRouteImport } from './routes/browse.series'
 
 const IndexRoute = IndexRouteImport.update({
@@ -47,6 +48,11 @@ const SearchRoute = SearchRouteImport.update({
   path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrowseMoviesRoute = BrowseMoviesRouteImport.update({
+  id: '/browse/movies',
+  path: '/browse/movies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BrowseSeriesRoute = BrowseSeriesRouteImport.update({
   id: '/browse/series',
   path: '/browse/series',
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/plans': typeof PlansRoute
   '/profiles': typeof ProfilesRoute
   '/search': typeof SearchRoute
+  '/browse/movies': typeof BrowseMoviesRoute
   '/browse/series': typeof BrowseSeriesRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/plans': typeof PlansRoute
   '/profiles': typeof ProfilesRoute
   '/search': typeof SearchRoute
+  '/browse/movies': typeof BrowseMoviesRoute
   '/browse/series': typeof BrowseSeriesRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/plans': typeof PlansRoute
   '/profiles': typeof ProfilesRoute
   '/search': typeof SearchRoute
+  '/browse/movies': typeof BrowseMoviesRoute
   '/browse/series': typeof BrowseSeriesRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/plans'
     | '/profiles'
     | '/search'
+    | '/browse/movies'
     | '/browse/series'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/plans'
     | '/profiles'
     | '/search'
+    | '/browse/movies'
     | '/browse/series'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/plans'
     | '/profiles'
     | '/search'
+    | '/browse/movies'
     | '/browse/series'
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   PlansRoute: typeof PlansRoute
   ProfilesRoute: typeof ProfilesRoute
   SearchRoute: typeof SearchRoute
+  BrowseMoviesRoute: typeof BrowseMoviesRoute
   BrowseSeriesRoute: typeof BrowseSeriesRoute
 }
 
@@ -165,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/browse/movies': {
+      id: '/browse/movies'
+      path: '/browse/movies'
+      fullPath: '/browse/movies'
+      preLoaderRoute: typeof BrowseMoviesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/browse/series': {
       id: '/browse/series'
       path: '/browse/series'
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   PlansRoute: PlansRoute,
   ProfilesRoute: ProfilesRoute,
   SearchRoute: SearchRoute,
+  BrowseMoviesRoute: BrowseMoviesRoute,
   BrowseSeriesRoute: BrowseSeriesRoute,
 }
 export const routeTree = rootRouteImport
