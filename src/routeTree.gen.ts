@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as PlansRouteImport } from './routes/plans'
 import { Route as ProfilesRouteImport } from './routes/profiles'
 import { Route as SearchRouteImport } from './routes/search'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlansRoute = PlansRouteImport.update({
+  id: '/plans',
+  path: '/plans',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfilesRoute = ProfilesRouteImport.update({
@@ -38,12 +44,14 @@ const SearchRoute = SearchRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/plans': typeof PlansRoute
   '/profiles': typeof ProfilesRoute
   '/search': typeof SearchRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/plans': typeof PlansRoute
   '/profiles': typeof ProfilesRoute
   '/search': typeof SearchRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/plans': typeof PlansRoute
   '/profiles': typeof ProfilesRoute
   '/search': typeof SearchRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/profiles' | '/search'
+  fullPaths: '/' | '/auth' | '/plans' | '/profiles' | '/search'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/profiles' | '/search'
-  id: '__root__' | '/' | '/auth' | '/profiles' | '/search'
+  to: '/' | '/auth' | '/plans' | '/profiles' | '/search'
+  id: '__root__' | '/' | '/auth' | '/plans' | '/profiles' | '/search'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  PlansRoute: typeof PlansRoute
   ProfilesRoute: typeof ProfilesRoute
   SearchRoute: typeof SearchRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plans': {
+      id: '/plans'
+      path: '/plans'
+      fullPath: '/plans'
+      preLoaderRoute: typeof PlansRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profiles': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  PlansRoute: PlansRoute,
   ProfilesRoute: ProfilesRoute,
   SearchRoute: SearchRoute,
 }
