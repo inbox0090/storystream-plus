@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as MyListRouteImport } from './routes/my-list'
 import { Route as PlansRouteImport } from './routes/plans'
 import { Route as ProfilesRouteImport } from './routes/profiles'
 import { Route as SearchRouteImport } from './routes/search'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyListRoute = MyListRouteImport.update({
+  id: '/my-list',
+  path: '/my-list',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlansRoute = PlansRouteImport.update({
@@ -44,6 +50,7 @@ const SearchRoute = SearchRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/my-list': typeof MyListRoute
   '/plans': typeof PlansRoute
   '/profiles': typeof ProfilesRoute
   '/search': typeof SearchRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/my-list': typeof MyListRoute
   '/plans': typeof PlansRoute
   '/profiles': typeof ProfilesRoute
   '/search': typeof SearchRoute
@@ -59,21 +67,24 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/my-list': typeof MyListRoute
   '/plans': typeof PlansRoute
   '/profiles': typeof ProfilesRoute
   '/search': typeof SearchRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/plans' | '/profiles' | '/search'
+  fullPaths: '/' | '/auth' | '/my-list' | '/plans' | '/profiles' | '/search'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/plans' | '/profiles' | '/search'
-  id: '__root__' | '/' | '/auth' | '/plans' | '/profiles' | '/search'
+  to: '/' | '/auth' | '/my-list' | '/plans' | '/profiles' | '/search'
+  id:
+    '__root__' | '/' | '/auth' | '/my-list' | '/plans' | '/profiles' | '/search'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  MyListRoute: typeof MyListRoute
   PlansRoute: typeof PlansRoute
   ProfilesRoute: typeof ProfilesRoute
   SearchRoute: typeof SearchRoute
@@ -93,6 +104,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-list': {
+      id: '/my-list'
+      path: '/my-list'
+      fullPath: '/my-list'
+      preLoaderRoute: typeof MyListRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/plans': {
@@ -122,6 +140,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  MyListRoute: MyListRoute,
   PlansRoute: PlansRoute,
   ProfilesRoute: ProfilesRoute,
   SearchRoute: SearchRoute,
